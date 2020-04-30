@@ -21,5 +21,3 @@
 <img src = "/Net/2.png">
 </p>
 
-# Code and Proper Documentation Coming Soon
-
