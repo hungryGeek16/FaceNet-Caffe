@@ -74,11 +74,11 @@ a.
 2. Tried to load that model using ckpt and index files, but for some reasons the files are shown as invalid.
 3. Because of these errors, used mmconvert but never reads bias layer weights.
 <div align="center">
-![Screenshot_from_2020-04-27_12-40-55](/Net/Screenshot_from_2020-04-27_12-40-55.png)
+![Error](Net/ss.png)
 </div>
 b. Batch Normalization does not accept mean and var parameters as whole bunch, there's a shape error.
 <div align="center">
-![Screenshot_from_2020-04-29_18-47-11](/Net/Screenshot_from_2020-04-29_18-47-11.png)
+![Error1](/Net/ss1.png)
 </div>  
 
 # Proposed Solution:
