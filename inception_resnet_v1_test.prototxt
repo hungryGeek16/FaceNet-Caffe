@@ -1,0 +1,6168 @@
+name: "GoogleNet"
+layer {
+  name: "data"
+  type: "Input"
+  top: "data"
+  input_param { shape: { dim:1  dim: 3 dim: 160 dim: 160 } }
+
+}
+layer {
+  name: "InceptionResnetV1/Conv2d_1a_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "data"
+  top: "InceptionResnetV1/Conv2d_1a_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 3
+    stride: 2
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Conv2d_1a_3x3/Conv2D"
+  top: "InceptionResnetV1/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv_3x3_1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  top: "conv_3x3_1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Conv2d_2a_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "conv_3x3_1_relu"
+  top: "InceptionResnetV1/Conv2d_2a_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Conv2d_2a_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Conv2d_2a_3x3/Conv2D"
+  top: "InceptionResnetV1/Conv2d_2a_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv_3x3_2_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Conv2d_2a_3x3/BatchNorm/FusedBatchNorm"
+  top: "conv_3x3_2_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Conv2d_2b_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "conv_3x3_2_relu"
+  top: "InceptionResnetV1/Conv2d_2b_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Conv2d_2b_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Conv2d_2b_3x3/Conv2D"
+  top: "InceptionResnetV1/Conv2d_2b_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv_3x3_3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Conv2d_2b_3x3/BatchNorm/FusedBatchNorm"
+  top: "conv_3x3_3_relu"
+}
+
+
+layer {
+  name: "pool/3x3"
+  type: "Pooling"
+  bottom: "conv_3x3_3_relu"
+  top: "pool/3x3"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Conv2d_3b_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "pool/3x3"
+  top: "InceptionResnetV1/Conv2d_3b_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 80
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Conv2d_3b_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Conv2d_3b_1x1/Conv2D"
+  top: "InceptionResnetV1/Conv2d_3b_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv_3x3_4_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Conv2d_3b_1x1/BatchNorm/FusedBatchNorm"
+  top: "conv_3x3_4_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Conv2d_4a_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "conv_3x3_4_relu"
+  top: "InceptionResnetV1/Conv2d_4a_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 0
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Conv2d_4a_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Conv2d_4a_3x3/Conv2D"
+  top: "InceptionResnetV1/Conv2d_4a_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv_3x3_5_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Conv2d_4a_3x3/BatchNorm/FusedBatchNorm"
+  top: "conv_3x3_5_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Conv2d_4b_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "conv_3x3_5_relu"
+  top: "InceptionResnetV1/Conv2d_4b_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 256
+    pad: 0
+    kernel_size: 3
+    stride: 2
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Conv2d_4b_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Conv2d_4b_3x3/Conv2D"
+  top: "InceptionResnetV1/Conv2d_4b_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv_3x3_6_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Conv2d_4b_3x3/BatchNorm/FusedBatchNorm"
+  top: "conv_3x3_6_relu"
+}
+
+
+
+#Inception A1
+layer {
+  name: "InceptionResnetV1/Repeat/block35_1/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "conv_3x3_6_relu"
+  top: "InceptionResnetV1/Repeat/block35_1/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_1/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_1/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_1/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA1_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_1/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA1_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_1/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "conv_3x3_6_relu"
+  top: "InceptionResnetV1/Repeat/block35_1/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_1/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_1/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_1/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA1_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_1/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA1_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_1/Branch_1/Conv2d_0b_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA1_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat/block35_1/Branch_1/Conv2d_0b_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_1/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_1/Branch_1/Conv2d_0b_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_1/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA1_2_3x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_1/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA1_2_3x3_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "conv_3x3_6_relu"
+  top: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA1_3_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA1_3_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0b_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA1_3_1x1_relu"
+  top: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0b_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0b_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA1_3_3x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA1_3_3x3_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0c_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA1_3_3x3_relu"
+  top: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0c_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0c_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA1_3_3x3_1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_1/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA1_3_3x3_1_relu"
+}
+
+
+layer {
+  name: "inception_A1/output"
+  type: "Concat"
+  bottom: "convA1_1_1x1_relu"
+  bottom: "convA1_2_3x3_relu"
+  bottom: "convA1_3_3x3_1_relu"
+  top: "inception_A1/output"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_1/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "inception_A1/output"
+  top: "InceptionResnetV1/Repeat/block35_1/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 256
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer{
+     name: "BiasA1"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat/block35_1/Conv2d_1x1/Conv2D"
+     top: "BiasA1"
+     }
+
+layer{
+  name: "Mult1"
+  type: "Power"
+  bottom: "BiasA1"
+  top: "Mult1"
+  power_param {
+    power: 1
+    scale: 0.17000
+    shift: 0
+  }
+}
+
+layer {
+  name: "ADD1"
+  type: "Eltwise"
+  bottom: "Mult1"
+  bottom: "conv_3x3_6_relu"
+  top: "ADD1"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "IncepA1_relu"
+  type: "ReLU"
+  bottom: "ADD1"
+  top: "IncepA1_relu"
+}
+
+
+
+
+#Inception A2
+layer {
+  name: "InceptionResnetV1/Repeat/block35_2/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "IncepA1_relu"
+  top: "InceptionResnetV1/Repeat/block35_2/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_2/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_2/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_2/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA2_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_2/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA2_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_2/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "IncepA1_relu"
+  top: "InceptionResnetV1/Repeat/block35_2/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_2/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_2/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_2/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA2_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_2/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA2_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_2/Branch_1/Conv2d_0b_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA2_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat/block35_2/Branch_1/Conv2d_0b_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_2/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_2/Branch_1/Conv2d_0b_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_2/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA2_2_3x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_2/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA2_2_3x3_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "IncepA1_relu"
+  top: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA2_3_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA2_3_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0b_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA2_3_1x1_relu"
+  top: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0b_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0b_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA2_3_3x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA2_3_3x3_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0c_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA2_3_3x3_relu"
+  top: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0c_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0c_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA2_3_3x3_1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_2/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA2_3_3x3_1_relu"
+}
+
+
+layer {
+  name: "inception_A2/output"
+  type: "Concat"
+  bottom: "convA2_1_1x1_relu"
+  bottom: "convA2_2_3x3_relu"
+  bottom: "convA2_3_3x3_1_relu"
+  top: "inception_A2/output"
+  concat_param{
+  axis : 1
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_2/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "inception_A2/output"
+  top: "InceptionResnetV1/Repeat/block35_2/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 256
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer{
+     name: "BiasA2"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat/block35_2/Conv2d_1x1/Conv2D"
+     top: "BiasA2"
+     }
+
+
+
+layer{
+  name: "Mult2"
+  type: "Power"
+  bottom: "BiasA2"
+  top: "Mult2"
+  power_param {
+    power: 1
+    scale: 0.17000
+    shift:0
+  }
+}
+
+layer {
+  name: "ADD2"
+  type: "Eltwise"
+  bottom: "Mult2"
+  bottom: "IncepA1_relu"
+  top: "ADD2"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "IncepA2_relu"
+  type: "ReLU"
+  bottom: "ADD2"
+  top: "IncepA2_relu"
+}
+
+
+
+
+
+#inception A3
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_3/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "IncepA2_relu"
+  top: "InceptionResnetV1/Repeat/block35_3/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_3/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_3/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_3/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA3_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_3/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA3_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_3/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "IncepA2_relu"
+  top: "InceptionResnetV1/Repeat/block35_3/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_3/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_3/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_3/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA3_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_3/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA3_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_3/Branch_1/Conv2d_0b_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA3_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat/block35_3/Branch_1/Conv2d_0b_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_3/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_3/Branch_1/Conv2d_0b_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_3/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA3_2_3x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_3/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA3_2_3x3_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "IncepA2_relu"
+  top: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA3_3_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA3_3_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0b_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA3_3_1x1_relu"
+  top: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0b_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0b_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA3_3_3x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA3_3_3x3_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0c_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA3_3_3x3_relu"
+  top: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0c_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0c_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA3_3_3x3_1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_3/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA3_3_3x3_1_relu"
+}
+
+
+layer {
+  name: "inception_A3/output"
+  type: "Concat"
+  bottom: "convA3_1_1x1_relu"
+  bottom: "convA3_2_3x3_relu"
+  bottom: "convA3_3_3x3_1_relu"
+  top: "inception_A3/output"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_3/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "inception_A3/output"
+  top: "InceptionResnetV1/Repeat/block35_3/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 256
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer{
+     name: "BiasA3"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat/block35_3/Conv2d_1x1/Conv2D"
+     top: "BiasA3"
+     }
+
+
+layer{
+  name: "Mult3"
+  type: "Power"
+  bottom: "BiasA3"
+  top: "Mult3"
+  power_param {
+    power: 1
+    scale: 0.17000
+    shift: 0
+  }
+}
+
+layer {
+  name: "ADD3"
+  type: "Eltwise"
+  bottom: "Mult3"
+  bottom: "IncepA2_relu"
+  top: "ADD3"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "IncepA3_relu"
+  type: "ReLU"
+  bottom: "ADD3"
+  top: "IncepA3_relu"
+}
+
+
+
+
+#Inception A4
+layer {
+  name: "InceptionResnetV1/Repeat/block35_4/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "IncepA3_relu"
+  top: "InceptionResnetV1/Repeat/block35_4/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_4/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_4/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_4/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA4_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_4/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA4_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_4/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "IncepA3_relu"
+  top: "InceptionResnetV1/Repeat/block35_4/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_4/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_4/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_4/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA4_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_4/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA4_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_4/Branch_1/Conv2d_0b_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA4_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat/block35_4/Branch_1/Conv2d_0b_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_4/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_4/Branch_1/Conv2d_0b_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_4/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA4_2_3x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_4/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA4_2_3x3_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "IncepA3_relu"
+  top: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA4_3_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA4_3_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0b_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA4_3_1x1_relu"
+  top: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0b_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0b_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA4_3_3x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA4_3_3x3_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0c_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA4_3_3x3_relu"
+  top: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0c_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0c_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA4_3_3x3_1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_4/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA4_3_3x3_1_relu"
+}
+
+
+layer {
+  name: "inception_A4/output"
+  type: "Concat"
+  bottom: "convA4_1_1x1_relu"
+  bottom: "convA4_2_3x3_relu"
+  bottom: "convA4_3_3x3_1_relu"
+  top: "inception_A4/output"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_4/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "inception_A4/output"
+  top: "InceptionResnetV1/Repeat/block35_4/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 256
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer{
+     name: "BiasA4"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat/block35_4/Conv2d_1x1/Conv2D"
+     top: "BiasA4"
+     }
+
+
+
+layer{
+  name: "Mult4"
+  type: "Power"
+  bottom: "BiasA4"
+  top: "Mult4"
+  power_param {
+    power: 1
+    scale: 0.17000
+    shift: 0
+  }
+}
+
+layer {
+  name: "ADD4"
+  type: "Eltwise"
+  bottom: "Mult4"
+  bottom: "IncepA3_relu"
+  top: "ADD4"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "IncepA4_relu"
+  type: "ReLU"
+  bottom: "ADD4"
+  top: "IncepA4_relu"
+}
+
+#inception A5
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_5/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "IncepA4_relu"
+  top: "InceptionResnetV1/Repeat/block35_5/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_5/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_5/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_5/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA5_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_5/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA5_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_5/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "IncepA4_relu"
+  top: "InceptionResnetV1/Repeat/block35_5/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_5/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_5/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_5/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA5_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_5/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA5_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_5/Branch_1/Conv2d_0b_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA5_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat/block35_5/Branch_1/Conv2d_0b_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_5/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_5/Branch_1/Conv2d_0b_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_5/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA5_2_3x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_5/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA5_2_3x3_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "IncepA4_relu"
+  top: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA5_3_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convA5_3_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0b_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA5_3_1x1_relu"
+  top: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0b_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0b_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA5_3_3x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA5_3_3x3_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0c_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "convA5_3_3x3_relu"
+  top: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0c_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0c_3x3/Conv2D"
+  top: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convA5_3_3x3_1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat/block35_5/Branch_2/Conv2d_0c_3x3/BatchNorm/FusedBatchNorm"
+  top: "convA5_3_3x3_1_relu"
+}
+
+
+layer {
+  name: "inception_A5/output"
+  type: "Concat"
+  bottom: "convA5_1_1x1_relu"
+  bottom: "convA5_2_3x3_relu"
+  bottom: "convA5_3_3x3_1_relu"
+  top: "inception_A5/output"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat/block35_5/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "inception_A5/output"
+  top: "InceptionResnetV1/Repeat/block35_5/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 256
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer{
+     name: "BiasA5"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat/block35_5/Conv2d_1x1/Conv2D"
+     top: "BiasA5"
+     }
+
+layer{
+  name: "Mult5"
+  type: "Power"
+  bottom: "BiasA5"
+  top: "Mult5"
+  power_param {
+    power: 1
+    scale: 0.17000
+    shift: 0
+  }
+}
+
+layer {
+  name: "ADD5"
+  type: "Eltwise"
+  bottom: "Mult5"
+  bottom: "IncepA4_relu"
+  top: "ADD5"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "IncepA5_relu"
+  type: "ReLU"
+  bottom: "ADD5"
+  top: "IncepA5_relu"
+}
+
+
+#Reduce grid into 17X17
+
+layer {
+  name: "InceptionResnetV1/Mixed_6a/Branch_0/Conv2d_1a_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "IncepA5_relu"
+  top: "InceptionResnetV1/Mixed_6a/Branch_0/Conv2d_1a_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 384
+    pad: 0
+    kernel_size: 3
+    stride: 2
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_6a/Branch_0/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Mixed_6a/Branch_0/Conv2d_1a_3x3/Conv2D"
+  top: "InceptionResnetV1/Mixed_6a/Branch_0/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv1_3x3_reduce_35_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Mixed_6a/Branch_0/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  top: "conv1_3x3_reduce_35_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "IncepA5_relu"
+  top: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv2_1x1_reduce_35_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "conv2_1x1_reduce_35_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_0b_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "conv2_1x1_reduce_35_relu"
+  top: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_0b_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_0b_3x3/Conv2D"
+  top: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv2_3x3_reduce_35_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  top: "conv2_3x3_reduce_35_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_1a_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "conv2_3x3_reduce_35_relu"
+  top: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_1a_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 256
+    pad: 0
+    kernel_size: 3
+    stride: 2
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_1a_3x3/Conv2D"
+  top: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv2_3x3_reduce_35_relu_1"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Mixed_6a/Branch_1/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  top: "conv2_3x3_reduce_35_relu_1"
+}
+
+
+
+layer {
+  name: "pool/3x3/1"
+  type: "Pooling"
+  bottom: "IncepA5_relu"
+  top: "pool/3x3/1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+
+layer {
+  name: "grid_17x17"
+  type: "Concat"
+  bottom: "conv1_3x3_reduce_35_relu"
+  bottom: "conv2_3x3_reduce_35_relu_1"
+  bottom: "pool/3x3/1"
+  top: "grid_17x17"
+}
+
+#Inception B1
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_1/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "grid_17x17"
+  top: "InceptionResnetV1/Repeat_1/block17_1/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_1/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_1/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_1/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB1_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_1/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB1_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "grid_17x17"
+  top: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB1_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB1_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0b_1x7/Conv2D"
+  type: "Convolution"
+  bottom: "convB1_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0b_1x7/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 3
+   kernel_h: 1
+   kernel_w: 7 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0b_1x7/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB1_2_1x7_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  top: "convB1_2_1x7_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0c_7x1/Conv2D"
+  type: "Convolution"
+  bottom: "convB1_2_1x7_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0c_7x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 3
+   pad_w: 0
+   kernel_h: 7
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0c_7x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB1_2_7x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_1/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  top: "convB1_2_7x1_relu"
+}
+
+layer {
+  name: "InceptB1"
+  type: "Concat"
+  bottom: "convB1_1_1x1_relu"
+  bottom: "convB1_2_7x1_relu"
+  top: "InceptB1"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_1/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB1"
+  top: "InceptionResnetV1/Repeat_1/block17_1/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 896
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasB1"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_1/block17_1/Conv2d_1x1/Conv2D"
+     top: "BiasB1"
+     }
+
+layer{
+  name: "MultB1"
+  type: "Power"
+  bottom: "BiasB1"
+  top: "MultB1"
+  power_param {
+    power: 1
+    scale: 0.10000
+  }
+}
+
+layer {
+  name: "ADDB1"
+  type: "Eltwise"
+  bottom: "MultB1"
+  bottom: "grid_17x17"
+  top: "ADDB1"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptB1_relu"
+  type: "ReLU"
+  bottom: "ADDB1"
+  top: "InceptB1_relu"
+}
+
+#Inception B2
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_2/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB1_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_2/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_2/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_2/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_2/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB2_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_2/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB2_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB1_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB2_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB2_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0b_1x7/Conv2D"
+  type: "Convolution"
+  bottom: "convB2_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0b_1x7/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 3
+   kernel_h: 1
+   kernel_w: 7 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0b_1x7/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB2_2_1x7_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  top: "convB2_2_1x7_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0c_7x1/Conv2D"
+  type: "Convolution"
+  bottom: "convB2_2_1x7_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0c_7x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 3
+   pad_w: 0
+   kernel_h: 7
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0c_7x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB2_2_7x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_2/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  top: "convB2_2_7x1_relu"
+}
+
+layer {
+  name: "InceptB2"
+  type: "Concat"
+  bottom: "convB2_1_1x1_relu"
+  bottom: "convB2_2_7x1_relu"
+  top: "InceptB2"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_2/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB2"
+  top: "InceptionResnetV1/Repeat_1/block17_2/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 896
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasB2"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_1/block17_2/Conv2d_1x1/Conv2D"
+     top: "BiasB2"
+     }
+
+
+layer{
+  name: "MultB2"
+  type: "Power"
+  bottom: "BiasB2"
+  top: "MultB2"
+  power_param {
+    scale: 0.10000
+  }
+}
+
+layer {
+  name: "ADDB2"
+  type: "Eltwise"
+  bottom: "MultB2"
+  bottom: "InceptB1_relu"
+  top: "ADDB2"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptB2_relu"
+  type: "ReLU"
+  bottom: "ADDB2"
+  top: "InceptB2_relu"
+}
+
+
+#Inception B3
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_3/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB2_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_3/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_3/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_3/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_3/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB3_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_3/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB3_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB2_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB3_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB3_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0b_1x7/Conv2D"
+  type: "Convolution"
+  bottom: "convB3_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0b_1x7/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 3
+   kernel_h: 1
+   kernel_w: 7 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0b_1x7/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB3_2_1x7_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  top: "convB3_2_1x7_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0c_7x1/Conv2D"
+  type: "Convolution"
+  bottom: "convB3_2_1x7_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0c_7x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 3
+   pad_w: 0
+   kernel_h: 7
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0c_7x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB3_2_7x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_3/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  top: "convB3_2_7x1_relu"
+}
+
+layer {
+  name: "InceptB3"
+  type: "Concat"
+  bottom: "convB3_1_1x1_relu"
+  bottom: "convB3_2_7x1_relu"
+  top: "InceptB3"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_3/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB3"
+  top: "InceptionResnetV1/Repeat_1/block17_3/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 896
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasB3"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_1/block17_3/Conv2d_1x1/Conv2D"
+     top: "BiasB3"
+     }
+
+layer{
+  name: "MultB3"
+  type: "Power"
+  bottom: "BiasB3"
+  top: "MultB3"
+  power_param {
+    scale: 0.10000
+  }
+}
+
+layer {
+  name: "ADDB3"
+  type: "Eltwise"
+  bottom: "MultB3"
+  bottom: "InceptB2_relu"
+  top: "ADDB3"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptB3_relu"
+  type: "ReLU"
+  bottom: "ADDB3"
+  top: "InceptB3_relu"
+}
+
+
+#Inception B4
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_4/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB3_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_4/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_4/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_4/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_4/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB4_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_4/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB4_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB3_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB4_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB4_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0b_1x7/Conv2D"
+  type: "Convolution"
+  bottom: "convB4_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0b_1x7/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 3
+   kernel_h: 1
+   kernel_w: 7 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0b_1x7/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB4_2_1x7_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  top: "convB4_2_1x7_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0c_7x1/Conv2D"
+  type: "Convolution"
+  bottom: "convB4_2_1x7_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0c_7x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 3
+   pad_w: 0
+   kernel_h: 7
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0c_7x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB4_2_7x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_4/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  top: "convB4_2_7x1_relu"
+}
+
+layer {
+  name: "InceptB4"
+  type: "Concat"
+  bottom: "convB4_1_1x1_relu"
+  bottom: "convB4_2_7x1_relu"
+  top: "InceptB4"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_4/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB4"
+  top: "InceptionResnetV1/Repeat_1/block17_4/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 896
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasB4"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_1/block17_4/Conv2d_1x1/Conv2D"
+     top: "BiasB4"
+     }
+
+
+layer{
+  name: "MultB4"
+  type: "Power"
+  bottom: "BiasB4"
+  top: "MultB4"
+  power_param {
+    scale: 0.10000
+  }
+}
+
+layer {
+  name: "ADDB4"
+  type: "Eltwise"
+  bottom: "MultB4"
+  bottom: "InceptB3_relu"
+  top: "ADDB4"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptB4_relu"
+  type: "ReLU"
+  bottom: "ADDB4"
+  top: "InceptB4_relu"
+}
+
+
+
+#Inception B5
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_5/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB4_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_5/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_5/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_5/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_5/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB5_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_5/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB5_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB4_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB5_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB5_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0b_1x7/Conv2D"
+  type: "Convolution"
+  bottom: "convB5_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0b_1x7/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 3
+   kernel_h: 1
+   kernel_w: 7 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0b_1x7/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB5_2_1x7_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  top: "convB5_2_1x7_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0c_7x1/Conv2D"
+  type: "Convolution"
+  bottom: "convB5_2_1x7_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0c_7x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 3
+   pad_w: 0
+   kernel_h: 7
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0c_7x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB5_2_7x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_5/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  top: "convB5_2_7x1_relu"
+}
+
+layer {
+  name: "InceptB5"
+  type: "Concat"
+  bottom: "convB5_1_1x1_relu"
+  bottom: "convB5_2_7x1_relu"
+  top: "InceptB5"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_5/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB5"
+  top: "InceptionResnetV1/Repeat_1/block17_5/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 896
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasB5"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_1/block17_5/Conv2d_1x1/Conv2D"
+     top: "BiasB5"
+     }
+
+layer{
+  name: "MultB5"
+  type: "Power"
+  bottom: "BiasB5"
+  top: "MultB5"
+  power_param {
+    scale: 0.10000
+  }
+}
+
+layer {
+  name: "ADDB5"
+  type: "Eltwise"
+  bottom: "MultB5"
+  bottom: "InceptB4_relu"
+  top: "ADDB5"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptB5_relu"
+  type: "ReLU"
+  bottom: "ADDB5"
+  top: "InceptB5_relu"
+}
+
+
+
+#Inception B6
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_6/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB5_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_6/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_6/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_6/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_6/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB6_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_6/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB6_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB5_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB6_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB6_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0b_1x7/Conv2D"
+  type: "Convolution"
+  bottom: "convB6_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0b_1x7/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 3
+   kernel_h: 1
+   kernel_w: 7 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0b_1x7/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB6_2_1x7_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  top: "convB6_2_1x7_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0c_7x1/Conv2D"
+  type: "Convolution"
+  bottom: "convB6_2_1x7_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0c_7x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 3
+   pad_w: 0
+   kernel_h: 7
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0c_7x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB6_2_7x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_6/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  top: "convB6_2_7x1_relu"
+}
+
+layer {
+  name: "InceptB6"
+  type: "Concat"
+  bottom: "convB6_1_1x1_relu"
+  bottom: "convB6_2_7x1_relu"
+  top: "InceptB6"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_6/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB6"
+  top: "InceptionResnetV1/Repeat_1/block17_6/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 896
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasB6"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_1/block17_6/Conv2d_1x1/Conv2D"
+     top: "BiasB6"
+     }
+
+layer{
+  name: "MultB6"
+  type: "Power"
+  bottom: "BiasB6"
+  top: "MultB6"
+  power_param {
+    scale: 0.10000
+  }
+}
+
+layer {
+  name: "ADDB6"
+  type: "Eltwise"
+  bottom: "MultB6"
+  bottom: "InceptB5_relu"
+  top: "ADDB6"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptB6_relu"
+  type: "ReLU"
+  bottom: "ADDB6"
+  top: "InceptB6_relu"
+}
+
+
+
+#Inception B7
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_7/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB6_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_7/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_7/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_7/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_7/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB7_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_7/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB7_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB6_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB7_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB7_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0b_1x7/Conv2D"
+  type: "Convolution"
+  bottom: "convB7_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0b_1x7/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 3
+   kernel_h: 1
+   kernel_w: 7 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0b_1x7/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB7_2_1x7_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  top: "convB7_2_1x7_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0c_7x1/Conv2D"
+  type: "Convolution"
+  bottom: "convB7_2_1x7_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0c_7x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 3
+   pad_w: 0
+   kernel_h: 7
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0c_7x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB7_2_7x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_7/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  top: "convB7_2_7x1_relu"
+}
+
+layer {
+  name: "InceptB7"
+  type: "Concat"
+  bottom: "convB7_1_1x1_relu"
+  bottom: "convB7_2_7x1_relu"
+  top: "InceptB7"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_7/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB7"
+  top: "InceptionResnetV1/Repeat_1/block17_7/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 896
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasB7"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_1/block17_7/Conv2d_1x1/Conv2D"
+     top: "BiasB7"
+     }
+
+layer{
+  name: "MultB7"
+  type: "Power"
+  bottom: "BiasB7"
+  top: "MultB7"
+  power_param {
+    scale: 0.10000
+  }
+}
+
+layer {
+  name: "ADDB7"
+  type: "Eltwise"
+  bottom: "MultB7"
+  bottom: "InceptB6_relu"
+  top: "ADDB7"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptB7_relu"
+  type: "ReLU"
+  bottom: "ADDB7"
+  top: "InceptB7_relu"
+}
+
+#Inception B8
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_8/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB7_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_8/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_8/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_8/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_8/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB8_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_8/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB8_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB7_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB8_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB8_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0b_1x7/Conv2D"
+  type: "Convolution"
+  bottom: "convB8_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0b_1x7/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 3
+   kernel_h: 1
+   kernel_w: 7 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0b_1x7/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB8_2_1x7_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  top: "convB8_2_1x7_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0c_7x1/Conv2D"
+  type: "Convolution"
+  bottom: "convB8_2_1x7_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0c_7x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 3
+   pad_w: 0
+   kernel_h: 7
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0c_7x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB8_2_7x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_8/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  top: "convB8_2_7x1_relu"
+}
+
+layer {
+  name: "InceptB8"
+  type: "Concat"
+  bottom: "convB8_1_1x1_relu"
+  bottom: "convB8_2_7x1_relu"
+  top: "InceptB8"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_8/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB8"
+  top: "InceptionResnetV1/Repeat_1/block17_8/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 896
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasB8"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_1/block17_8/Conv2d_1x1/Conv2D"
+     top: "BiasB8"
+     }
+
+layer{
+  name: "MultB8"
+  type: "Power"
+  bottom: "BiasB8"
+  top: "MultB8"
+  power_param {
+    scale: 0.10000
+  }
+}
+
+layer {
+  name: "ADDB8"
+  type: "Eltwise"
+  bottom: "MultB8"
+  bottom: "InceptB7_relu"
+  top: "ADDB8"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptB8_relu"
+  type: "ReLU"
+  bottom: "ADDB8"
+  top: "InceptB8_relu"
+}
+
+
+
+#Inception B9
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_9/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB8_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_9/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_9/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_9/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_9/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB9_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_9/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB9_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB8_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB9_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB9_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0b_1x7/Conv2D"
+  type: "Convolution"
+  bottom: "convB9_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0b_1x7/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 3
+   kernel_h: 1
+   kernel_w: 7 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0b_1x7/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB9_2_1x7_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  top: "convB9_2_1x7_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0c_7x1/Conv2D"
+  type: "Convolution"
+  bottom: "convB9_2_1x7_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0c_7x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 3
+   pad_w: 0
+   kernel_h: 7
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0c_7x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB9_2_7x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_9/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  top: "convB9_2_7x1_relu"
+}
+
+layer {
+  name: "InceptB9"
+  type: "Concat"
+  bottom: "convB9_1_1x1_relu"
+  bottom: "convB9_2_7x1_relu"
+  top: "InceptB9"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_9/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB9"
+  top: "InceptionResnetV1/Repeat_1/block17_9/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 896
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasB9"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_1/block17_9/Conv2d_1x1/Conv2D"
+     top: "BiasB9"
+     }
+
+
+layer{
+  name: "MultB9"
+  type: "Power"
+  bottom: "BiasB9"
+  top: "MultB9"
+  power_param {
+    scale: 0.10000
+  }
+}
+
+layer {
+  name: "ADDB9"
+  type: "Eltwise"
+  bottom: "MultB9"
+  bottom: "InceptB8_relu"
+  top: "ADDB9"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptB9_relu"
+  type: "ReLU"
+  bottom: "ADDB9"
+  top: "InceptB9_relu"
+}
+
+#Inception B10
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_10/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB9_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_10/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_10/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_10/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_10/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB10_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_10/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB10_1_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB9_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB10_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convB10_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0b_1x7/Conv2D"
+  type: "Convolution"
+  bottom: "convB10_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0b_1x7/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 3
+   kernel_h: 1
+   kernel_w: 7 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0b_1x7/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB10_2_1x7_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0b_1x7/BatchNorm/FusedBatchNorm"
+  top: "convB10_2_1x7_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0c_7x1/Conv2D"
+  type: "Convolution"
+  bottom: "convB10_2_1x7_relu"
+  top: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0c_7x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 128
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 3
+   pad_w: 0
+   kernel_h: 7
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0c_7x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convB10_2_7x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_1/block17_10/Branch_1/Conv2d_0c_7x1/BatchNorm/FusedBatchNorm"
+  top: "convB10_2_7x1_relu"
+}
+
+layer {
+  name: "InceptB10"
+  type: "Concat"
+  bottom: "convB10_1_1x1_relu"
+  bottom: "convB10_2_7x1_relu"
+  top: "InceptB10"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_1/block17_10/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB10"
+  top: "InceptionResnetV1/Repeat_1/block17_10/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 896
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasB10"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_1/block17_10/Conv2d_1x1/Conv2D"
+     top: "BiasB10"
+     }
+
+layer{
+  name: "MultB10"
+  type: "Power"
+  bottom: "BiasB10"
+  top: "MultB10"
+  power_param {
+    scale: 0.10000
+  }
+}
+
+layer {
+  name: "ADDB10"
+  type: "Eltwise"
+  bottom: "MultB10"
+  bottom: "InceptB9_relu"
+  top: "ADDB10"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptB10_relu"
+  type: "ReLU"
+  bottom: "ADDB10"
+  top: "InceptB10_relu"
+}
+
+# Reduce to grid 8x8
+
+
+layer {
+  name: "InceptionResnetV1/Mixed_7a/Branch_0/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB10_relu"
+  top: "InceptionResnetV1/Mixed_7a/Branch_0/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 256
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_7a/Branch_0/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Mixed_7a/Branch_0/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Mixed_7a/Branch_0/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv_reduce_C_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Mixed_7a/Branch_0/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "conv_reduce_C_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_7a/Branch_0/Conv2d_1a_3x3/Conv2D"
+  type: "Convolution"
+  bottom: "conv_reduce_C_1x1_relu"
+  top: "InceptionResnetV1/Mixed_7a/Branch_0/Conv2d_1a_3x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 384
+    pad: 0
+    kernel_size: 3
+    stride: 2
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_7a/Branch_0/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Mixed_7a/Branch_0/Conv2d_1a_3x3/Conv2D"
+  top: "InceptionResnetV1/Mixed_7a/Branch_0/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv_reduce_C_3x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Mixed_7a/Branch_0/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  top: "conv_reduce_C_3x3_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_7a/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptB10_relu"
+  top: "InceptionResnetV1/Mixed_7a/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 256
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_7a/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Mixed_7a/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Mixed_7a/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv_reduce_C_1x1_1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Mixed_7a/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "conv_reduce_C_1x1_1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_7a/Branch_1/Conv2d_1a_3x3/Conv2D"
+  type: "Convolution"
+  top: "InceptionResnetV1/Mixed_7a/Branch_1/Conv2d_1a_3x3/Conv2D"
+  bottom: "conv_reduce_C_1x1_1_relu"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 256
+    pad: 0
+    kernel_size: 3
+    stride: 2
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_7a/Branch_1/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Mixed_7a/Branch_1/Conv2d_1a_3x3/Conv2D"
+  top: "InceptionResnetV1/Mixed_7a/Branch_1/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv_reduce_C_3x3_1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Mixed_7a/Branch_1/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  top: "conv_reduce_C_3x3_1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  top: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_0a_1x1/Conv2D"
+  bottom: "InceptB10_relu"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 256
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv_reduce_C1_1x1_1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "conv_reduce_C1_1x1_1_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_0b_3x3/Conv2D"
+  type: "Convolution"
+  top: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_0b_3x3/Conv2D"
+  bottom: "conv_reduce_C1_1x1_1_relu"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_0b_3x3/Conv2D"
+  top: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv_reduce_C11_3x3_1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_0b_3x3/BatchNorm/FusedBatchNorm"
+  top: "conv_reduce_C11_3x3_1_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_1a_3x3/Conv2D"
+  type: "Convolution"
+  top: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_1a_3x3/Conv2D"
+  bottom: "conv_reduce_C11_3x3_1_relu"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 256
+    pad: 0
+    kernel_size: 3
+    stride: 2
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_1a_3x3/Conv2D"
+  top: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "conv_reduce_C111_3x3_1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Mixed_7a/Branch_2/Conv2d_1a_3x3/BatchNorm/FusedBatchNorm"
+  top: "conv_reduce_C111_3x3_1_relu"
+}
+
+layer {
+  name: "pooling/8x8"
+  type: "Pooling"
+  bottom: "InceptB10_relu"
+  top: "pooling/8x8"
+  pooling_param {
+    pool: MAX
+    kernel_size: 4 
+    stride: 2      
+  }
+}
+
+
+layer {
+  name: "grid_8x8"
+  type: "Concat"
+  bottom: "pooling/8x8"
+  bottom: "conv_reduce_C_3x3_relu"
+  bottom: "conv_reduce_C_3x3_1_relu"
+  bottom: "conv_reduce_C111_3x3_1_relu"
+  top: "grid_8x8"
+}
+
+##########
+
+
+#Inception C1
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_1/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "grid_8x8"
+  top: "InceptionResnetV1/Repeat_2/block8_1/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_1/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_1/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_1/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC1_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_1/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convC1_1_1x1_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "grid_8x8"
+  top: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC1_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convC1_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0b_1x3/Conv2D"
+  type: "Convolution"
+  bottom: "convC1_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0b_1x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 1
+   kernel_h: 1
+   kernel_w: 3 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0b_1x3/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC1_2_1x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  top: "convC1_2_1x3_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0c_3x1/Conv2D"
+  type: "Convolution"
+  bottom: "convC1_2_1x3_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0c_3x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 1
+   pad_w: 0
+   kernel_h: 3
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0c_3x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC1_2_3x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_1/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  top: "convC1_2_3x1_relu"
+}
+
+layer {
+  name: "InceptC1"
+  type: "Concat"
+  bottom: "convC1_1_1x1_relu"
+  bottom: "convC1_2_3x1_relu"
+  top: "InceptC1"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_1/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC1"
+  top: "InceptionResnetV1/Repeat_2/block8_1/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 1792
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasC1"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_2/block8_1/Conv2d_1x1/Conv2D"
+     top: "BiasC1"
+     }
+
+
+
+layer{
+  name: "MultC1"
+  type: "Power"
+  bottom: "BiasC1"
+  top: "MultC1"
+  power_param {
+    scale: 0.20000
+  }
+}
+
+layer {
+  name: "ADDC1"
+  type: "Eltwise"
+  bottom: "MultC1"
+  bottom: "grid_8x8"
+  top: "ADDC1"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptC1_relu"
+  type: "ReLU"
+  bottom: "ADDC1"
+  top: "InceptC1_relu"
+}
+
+
+#Inception C2
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_2/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC1_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_2/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_2/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_2/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_2/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC2_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_2/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convC2_1_1x1_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC1_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC2_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convC2_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0b_1x3/Conv2D"
+  type: "Convolution"
+  bottom: "convC2_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0b_1x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 1
+   kernel_h: 1
+   kernel_w: 3 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0b_1x3/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC2_2_1x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  top: "convC2_2_1x3_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0c_3x1/Conv2D"
+  type: "Convolution"
+  bottom: "convC2_2_1x3_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0c_3x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 1
+   pad_w: 0
+   kernel_h: 3
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0c_3x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC2_2_3x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_2/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  top: "convC2_2_3x1_relu"
+}
+
+layer {
+  name: "InceptC2"
+  type: "Concat"
+  bottom: "convC2_1_1x1_relu"
+  bottom: "convC2_2_3x1_relu"
+  top: "InceptC2"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_2/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC2"
+  top: "InceptionResnetV1/Repeat_2/block8_2/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 1792
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasC2"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_2/block8_2/Conv2d_1x1/Conv2D"
+     top: "BiasC2"
+     }
+
+
+layer{
+  name: "MultC2"
+  type: "Power"
+  bottom: "BiasC2"
+  top: "MultC2"
+  power_param {
+    scale: 0.20000
+  }
+}
+
+layer {
+  name: "ADDC2"
+  type: "Eltwise"
+  bottom: "MultC2"
+  bottom: "InceptC1_relu"
+  top: "ADDC2"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptC2_relu"
+  type: "ReLU"
+  bottom: "ADDC2"
+  top: "InceptC2_relu"
+}
+
+
+
+
+#Inception C3
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_3/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC2_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_3/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_3/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_3/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_3/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC3_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_3/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convC3_1_1x1_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC2_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC3_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convC3_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0b_1x3/Conv2D"
+  type: "Convolution"
+  bottom: "convC3_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0b_1x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 1
+   kernel_h: 1
+   kernel_w: 3 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0b_1x3/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC3_2_1x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  top: "convC3_2_1x3_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0c_3x1/Conv2D"
+  type: "Convolution"
+  bottom: "convC3_2_1x3_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0c_3x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 1
+   pad_w: 0
+   kernel_h: 3
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0c_3x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC3_2_3x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_3/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  top: "convC3_2_3x1_relu"
+}
+
+layer {
+  name: "InceptC3"
+  type: "Concat"
+  bottom: "convC3_1_1x1_relu"
+  bottom: "convC3_2_3x1_relu"
+  top: "InceptC3"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_3/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC3"
+  top: "InceptionResnetV1/Repeat_2/block8_3/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 1792
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasC3"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_2/block8_3/Conv2d_1x1/Conv2D"
+     top: "BiasC3"
+     }
+
+layer{
+  name: "MultC3"
+  type: "Power"
+  bottom: "BiasC3"
+  top: "MultC3"
+  power_param {
+    scale: 0.20000
+  }
+}
+
+layer {
+  name: "ADDC3"
+  type: "Eltwise"
+  bottom: "MultC3"
+  bottom: "InceptC2_relu"
+  top: "ADDC3"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptC3_relu"
+  type: "ReLU"
+  bottom: "ADDC3"
+  top: "InceptC3_relu"
+}
+
+#Inception C4
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_4/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC3_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_4/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_4/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_4/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_4/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC4_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_4/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convC4_1_1x1_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC3_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC4_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convC4_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0b_1x3/Conv2D"
+  type: "Convolution"
+  bottom: "convC4_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0b_1x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 1
+   kernel_h: 1
+   kernel_w: 3 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0b_1x3/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC4_2_1x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  top: "convC4_2_1x3_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0c_3x1/Conv2D"
+  type: "Convolution"
+  bottom: "convC4_2_1x3_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0c_3x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 1
+   pad_w: 0
+   kernel_h: 3
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0c_3x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC4_2_3x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_4/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  top: "convC4_2_3x1_relu"
+}
+
+layer {
+  name: "InceptC4"
+  type: "Concat"
+  bottom: "convC4_1_1x1_relu"
+  bottom: "convC4_2_3x1_relu"
+  top: "InceptC4"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_4/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC4"
+  top: "InceptionResnetV1/Repeat_2/block8_4/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 1792
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasC4"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_2/block8_4/Conv2d_1x1/Conv2D"
+     top: "BiasC4"
+     }
+
+layer{
+  name: "MultC4"
+  type: "Power"
+  bottom: "BiasC4"
+  top: "MultC4"
+  power_param {
+    scale: 0.20000
+  }
+}
+
+layer {
+  name: "ADDC4"
+  type: "Eltwise"
+  bottom: "MultC4"
+  bottom: "InceptC3_relu"
+  top: "ADDC4"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptC4_relu"
+  type: "ReLU"
+  bottom: "ADDC4"
+  top: "InceptC4_relu"
+}
+
+
+#Inception C5
+
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_5/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC4_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_5/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_5/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_5/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_5/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC5_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_5/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convC5_1_1x1_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC4_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC5_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convC5_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0b_1x3/Conv2D"
+  type: "Convolution"
+  bottom: "convC5_2_1x1_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0b_1x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 1
+   kernel_h: 1
+   kernel_w: 3 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0b_1x3/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC5_2_1x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  top: "convC5_2_1x3_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0c_3x1/Conv2D"
+  type: "Convolution"
+  bottom: "convC5_2_1x3_relu"
+  top: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0c_3x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 1
+   pad_w: 0
+   kernel_h: 3
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0c_3x1/Conv2D"
+  top: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC5_2_3x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Repeat_2/block8_5/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  top: "convC5_2_3x1_relu"
+}
+
+layer {
+  name: "InceptC5"
+  type: "Concat"
+  bottom: "convC5_1_1x1_relu"
+  bottom: "convC5_2_3x1_relu"
+  top: "InceptC5"
+}
+
+layer {
+  name: "InceptionResnetV1/Repeat_2/block8_5/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC5"
+  top: "InceptionResnetV1/Repeat_2/block8_5/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 1792
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasC5"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Repeat_2/block8_5/Conv2d_1x1/Conv2D"
+     top: "BiasC5"
+     }
+
+layer{
+  name: "MultC5"
+  type: "Power"
+  bottom: "BiasC5"
+  top: "MultC5"
+  power_param {
+    scale: 0.20000
+  }
+}
+
+layer {
+  name: "ADDC5"
+  type: "Eltwise"
+  bottom: "MultC5"
+  bottom: "InceptC4_relu"
+  top: "ADDC5"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptC5_relu"
+  type: "ReLU"
+  bottom: "ADDC5"
+  top: "InceptC5_relu"
+}
+
+#Inception C6
+
+layer {
+  name: "InceptionResnetV1/Block8/Branch_0/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC5_relu"
+  top: "InceptionResnetV1/Block8/Branch_0/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Block8/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Block8/Branch_0/Conv2d_1x1/Conv2D"
+  top: "InceptionResnetV1/Block8/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC6_1_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Block8/Branch_0/Conv2d_1x1/BatchNorm/FusedBatchNorm"
+  top: "convC6_1_1x1_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Block8/Branch_1/Conv2d_0a_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC5_relu"
+  top: "InceptionResnetV1/Block8/Branch_1/Conv2d_0a_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Block8/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Block8/Branch_1/Conv2d_0a_1x1/Conv2D"
+  top: "InceptionResnetV1/Block8/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC6_2_1x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Block8/Branch_1/Conv2d_0a_1x1/BatchNorm/FusedBatchNorm"
+  top: "convC6_2_1x1_relu"
+}
+
+layer {
+  name: "InceptionResnetV1/Block8/Branch_1/Conv2d_0b_1x3/Conv2D"
+  type: "Convolution"
+  bottom: "convC6_2_1x1_relu"
+  top: "InceptionResnetV1/Block8/Branch_1/Conv2d_0b_1x3/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 0
+   pad_w: 1
+   kernel_h: 1
+   kernel_w: 3 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Block8/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Block8/Branch_1/Conv2d_0b_1x3/Conv2D"
+  top: "InceptionResnetV1/Block8/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC6_2_1x3_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Block8/Branch_1/Conv2d_0b_1x3/BatchNorm/FusedBatchNorm"
+  top: "convC6_2_1x3_relu"
+}
+
+
+layer {
+  name: "InceptionResnetV1/Block8/Branch_1/Conv2d_0c_3x1/Conv2D"
+  type: "Convolution"
+  bottom: "convC6_2_1x3_relu"
+  top: "InceptionResnetV1/Block8/Branch_1/Conv2d_0c_3x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 192
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+   pad_h: 1
+   pad_w: 0
+   kernel_h: 3
+   kernel_w: 1 
+  }
+}
+
+layer {
+  name: "InceptionResnetV1/Block8/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Block8/Branch_1/Conv2d_0c_3x1/Conv2D"
+  top: "InceptionResnetV1/Block8/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
+layer {
+  name: "convC6_2_3x1_relu"
+  type: "ReLU"
+  bottom: "InceptionResnetV1/Block8/Branch_1/Conv2d_0c_3x1/BatchNorm/FusedBatchNorm"
+  top: "convC6_2_3x1_relu"
+}
+
+layer {
+  name: "InceptC6"
+  type: "Concat"
+  bottom: "convC6_1_1x1_relu"
+  bottom: "convC6_2_3x1_relu"
+  top: "InceptC6"
+}
+
+layer {
+  name: "InceptionResnetV1/Block8/Conv2d_1x1/Conv2D"
+  type: "Convolution"
+  bottom: "InceptC6"
+  top: "InceptionResnetV1/Block8/Conv2d_1x1/Conv2D"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    bias_term: false
+    num_output: 1792
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+
+  }
+}
+
+layer{
+     name: "BiasC6"
+     type: "Bias"
+     bottom: "InceptionResnetV1/Block8/Conv2d_1x1/Conv2D"
+     top: "BiasC6"
+     }
+
+layer{
+  name: "MultC6"
+  type: "Power"
+  bottom: "BiasC6"
+  top: "MultC6"
+  power_param {
+    scale: 0.20000
+  }
+}
+
+layer {
+  name: "ADDC6"
+  type: "Eltwise"
+  bottom: "MultC6"
+  bottom: "InceptC5_relu"
+  top: "ADDC6"
+  eltwise_param {
+   operation: SUM 
+}
+}
+
+layer {
+  name: "InceptC6_relu"
+  type: "ReLU"
+  bottom: "ADDC6"
+  top: "InceptC6_relu"
+}
+
+
+
+
+
+# Pooling Layer
+
+
+layer {
+  name: "pool_end"
+  type: "Pooling"
+  bottom: "InceptC6_relu"
+  top: "pool_end"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3 
+    stride: 1      
+  }
+}
+
+
+layer {
+  name: "flatdata"
+  type: "Flatten"
+  bottom: "pool_end"
+  top: "flatdata"
+}
+
+
+layer {
+name: "drop1"
+type: "Dropout"
+bottom: "flatdata"
+top: "drop1"
+dropout_param {
+dropout_ratio: 0.2
+}
+}
+
+
+layer {
+  name: "InceptionResnetV1/Bottleneck/MatMul"
+  type: "InnerProduct"
+  param { 
+  lr_mult: 1 
+  decay_mult: 1 
+       }
+  inner_product_param {
+    num_output: 512
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+  }
+  bottom: "drop1"
+  top: "InceptionResnetV1/Bottleneck/MatMul"
+}
+
+layer {
+  name: "InceptionResnetV1/Bottleneck/BatchNorm/FusedBatchNorm"
+  type: "BatchNorm"
+  bottom: "InceptionResnetV1/Bottleneck/MatMul"
+  top: "InceptionResnetV1/Bottleneck/BatchNorm/FusedBatchNorm"
+  batch_norm_param {
+    use_global_stats: true
+    eps: 0.001
+  }
+}
+
